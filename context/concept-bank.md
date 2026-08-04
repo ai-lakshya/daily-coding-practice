@@ -21,7 +21,7 @@
 | jsts-08 | JS/TS | Hoisting & the temporal dead zone | todo | | |
 | jsts-09 | JS/TS | == vs === and type coercion | todo | | |
 | jsts-10 | JS/TS | Modules (ESM vs CommonJS) | todo | | |
-| dsa-01 | DSA-theory | Amortized analysis (aggregate/accounting/potential methods) | todo | | |
+| dsa-01 | DSA-theory | Amortized analysis (aggregate/accounting/potential methods) | covered | 2026-08-04 | |
 | dsa-02 | DSA-theory | Loop invariants & correctness proofs | todo | | |
 | dsa-03 | DSA-theory | Recursion-to-iteration transformation & tail calls | todo | | |
 | dsa-04 | DSA-theory | Big-O / Big-Theta / Big-Omega — formal definitions | todo | | |

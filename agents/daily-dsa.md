@@ -2,8 +2,11 @@
 
 ## 1. Determine what to serve
 Read context/state.md and context/problem-bank.md.
-- If pending_review_ids has an entry due (next_review <= today), serve that
-  problem first — spaced repetition beats novelty.
+- Scan problem-bank.md for every `status: solved` row whose `next_review`
+  date is due (<= today). If one or more exist, serve the most-overdue one
+  first (earliest next_review date) — spaced repetition beats novelty.
+  This is computed fresh from problem-bank.md each session, not cached in
+  state.md, so it can never fall out of sync with the actual due dates.
 - Else (selection_mode: random-combined): pick uniformly at random from every
   `status: todo` row across all three sources combined (leetcode-150 +
   atcoder-dp + cses) — no per-source rotation, no cursor to advance. This

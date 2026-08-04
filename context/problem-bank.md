@@ -51,7 +51,7 @@
 | lc150-0048 | leetcode-150 | 0048 | Summary Ranges | https://leetcode.com/problems/summary-ranges/ | Intervals | Easy | todo | | | |
 | lc150-0049 | leetcode-150 | 0049 | Merge Intervals | https://leetcode.com/problems/merge-intervals/ | Intervals | Medium | todo | | | |
 | lc150-0050 | leetcode-150 | 0050 | Insert Interval | https://leetcode.com/problems/insert-interval/ | Intervals | Medium | todo | | | |
-| lc150-0051 | leetcode-150 | 0051 | Minimum Number of Arrows to Burst Balloons | https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/ | Intervals | Medium | todo | | | |
+| lc150-0051 | leetcode-150 | 0051 | Minimum Number of Arrows to Burst Balloons | https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/ | Intervals | Medium | solved | 2026-08-04 | 2026-08-11 | docs/leetcode-150/lc150-0051-minimum-number-of-arrows-to-burst-balloons.md |
 | lc150-0052 | leetcode-150 | 0052 | Valid Parentheses | https://leetcode.com/problems/valid-parentheses/ | Stack | Easy | todo | | | |
 | lc150-0053 | leetcode-150 | 0053 | Simplify Path | https://leetcode.com/problems/simplify-path/ | Stack | Medium | todo | | | |
 | lc150-0054 | leetcode-150 | 0054 | Min Stack | https://leetcode.com/problems/min-stack/ | Stack | Medium | todo | | | |

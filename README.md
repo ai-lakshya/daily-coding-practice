@@ -16,9 +16,10 @@ in this repo's files — no external app or database.
   `context/concept-bank.md`.
 - Every session's outcome is logged to `context/progress.md`, per-problem
   write-ups go in `docs/<source>/`, and per-concept notes go in `concepts/`.
-- `context/state.md` tracks streak, concept rotation position, and
-  anything due for spaced-repetition review — it's the only "memory" this
-  repo has.
+- `context/state.md` tracks streak and concept rotation position — it's
+  the only cached "memory" this repo has. What's due for spaced-repetition
+  review is *not* cached there; it's computed fresh each session directly
+  from `next_review` dates in `problem-bank.md`, so it can't go stale.
 
 ## Starting a session
 Say things like:
