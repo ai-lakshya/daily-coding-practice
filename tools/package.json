@@ -1,0 +1,15 @@
+{
+  "name": "daily-coding-practice-tools",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "next-up": "tsx src/next-up.ts",
+    "streak": "tsx src/streak.ts"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.4",
+    "tsx": "^4.16.2",
+    "@types/node": "^20.14.0"
+  }
+}
