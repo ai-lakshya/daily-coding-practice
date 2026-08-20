@@ -28,7 +28,7 @@
 | lc150-0025 | leetcode-150 | 0025 | Valid Palindrome | https://leetcode.com/problems/valid-palindrome/ | Two Pointers | Easy | todo | | | |
 | lc150-0026 | leetcode-150 | 0026 | Is Subsequence | https://leetcode.com/problems/is-subsequence/ | Two Pointers | Easy | todo | | | |
 | lc150-0027 | leetcode-150 | 0027 | Two Sum II - Input Array Is Sorted | https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/ | Two Pointers | Medium | todo | | | |
-| lc150-0028 | leetcode-150 | 0028 | Container With Most Water | https://leetcode.com/problems/container-with-most-water/ | Two Pointers | Medium | todo | | | |
+| lc150-0028 | leetcode-150 | 0028 | Container With Most Water | https://leetcode.com/problems/container-with-most-water/ | Two Pointers | Medium | solved | 2026-08-04 | 2026-08-18 | docs/leetcode-150/lc150-0028-container-with-most-water.md |
 | lc150-0029 | leetcode-150 | 0029 | 3Sum | https://leetcode.com/problems/3sum/ | Two Pointers | Medium | todo | | | |
 | lc150-0030 | leetcode-150 | 0030 | Minimum Size Subarray Sum | https://leetcode.com/problems/minimum-size-subarray-sum/ | Sliding Window | Medium | todo | | | |
 | lc150-0031 | leetcode-150 | 0031 | Longest Substring Without Repeating Characters | https://leetcode.com/problems/longest-substring-without-repeating-characters/ | Sliding Window | Medium | todo | | | |

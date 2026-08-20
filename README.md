@@ -14,6 +14,12 @@ in this repo's files — no external app or database.
 - **Concepts** rotate through seven categories (C++, JS/TS, DSA-theory,
   System-Design, OOP, OS, AI-Automation), seeded in
   `context/concept-bank.md`.
+- **System design** is a separate self-study track: you read a topic from
+  your own PDF first, then bring in what you understood. The agent writes
+  its own independent explanation into `system-design/<sub-topic>/`, then
+  you cross-question it, and the discussion gets appended to that same doc.
+  Topics are living notes — a second session on a topic extends its doc
+  rather than starting a new one. `system-design/INDEX.md` maps it all.
 - Every session's outcome is logged to `context/progress.md`, per-problem
   write-ups go in `docs/<source>/`, and per-concept notes go in `concepts/`.
 - `context/state.md` tracks streak and concept rotation position — it's
@@ -25,6 +31,7 @@ in this repo's files — no external app or database.
 Say things like:
 - "give me today's DSA problem" / "daily practice"
 - "concept of the day" / "teach me something"
+- "system design: <topic> — here's what I read today ..." (or `/system-design`)
 - "how am I doing" / "show progress" / "my streak"
 - "weekly review"
 
