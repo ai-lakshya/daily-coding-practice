@@ -7,7 +7,8 @@ one that already has a doc to extend.
 ## Topics
 | id | sub-topic | topic | doc | sessions | confidence | first_logged | last_updated |
 |----|-----------|-------|-----|---------:|:----------:|--------------|--------------|
-<!-- No topics logged yet. First session writes the first row here. -->
+| sd-001 | databases | Transaction Isolation Levels | `databases/transaction-isolation-levels.md` | 1 | pending | 2026-08-19 | 2026-08-21 |
+| sd-002 | databases | Transactions & ACID Properties | `databases/transactions-acid.md` | 1 | pending | 2026-08-21 | 2026-08-21 |
 
 ## Canonical sub-topic directories
 Pick the closest fit. Create a new directory only if a topic genuinely

@@ -1,6 +1,6 @@
 # Transaction Isolation Levels
 **id:** sd-001 | **Sub-topic:** databases | **Confidence:** _(pending)_/5
-**First logged:** 2026-08-19 | **Last updated:** 2026-08-19 | **Sessions:** 1
+**First logged:** 2026-08-19 | **Last updated:** 2026-08-21 | **Sessions:** 1
 
 ## Source Material (what I brought in)
 From the system-design PDF. User's summary:
@@ -387,13 +387,40 @@ the transactions a single row to fight over.** That's the general escape
 hatch from write skew without paying for full serializability.
 
 ## Discussion Log
-### Session 1 — 2026-08-19
-_(cross-questioning in progress — to be filled in on close)_
+### Session 1 — 2026-08-19 (opening explanation), continued 2026-08-21 (cross-questioning)
+**Opening (2026-08-19):** Full explanation delivered and read — anomalies
+P0-P4/A5A/A5B, the standard's permission table, locking (2PL/strict 2PL) vs
+MVCC mechanics, the snapshot-timing table, write skew (Berenson et al.'s H5,
+worked as the hospital on-call example), reaching real serializability
+(SSI vs. actual serial execution), the trade-off table, and PostgreSQL /
+MySQL / Oracle deviations from the standard. All of this is the body of the
+doc above.
+
+**Cross-questioning (2026-08-21):** Rather than starting on isolation-level
+specifics, the user first asked to firm up the foundations underneath the
+whole topic — "what is a transaction, with all its types" and "explain ACID
+in detail with examples," followed by a fsync follow-up. That exchange grew
+substantial and reusable enough (transaction classification axes, WAL/fsync
+mechanics) to become its own doc — see `sd-002` in Connections below rather
+than duplicating it here.
+
+No isolation-level-specific cross-questions (anomalies, write skew
+mechanics, engine-specific behavior) have been asked yet this session — see
+Open Questions.
 
 ## Open Questions
-_(to be filled in on close)_
+- Isolation-level-specific cross-questioning hasn't started yet — the
+  session so far went into transaction/ACID foundations instead (now
+  `sd-002`). Next session should pick up here: e.g. write-skew fix
+  trade-offs in more depth, PostgreSQL SSI false-positive/retry behavior in
+  practice, or MySQL gap-locking specifics under different statement types.
 
 ## Connections
+- `system-design/databases/transactions-acid.md` (sd-002) — split off from
+  this session's cross-questioning. Covers transaction types and ACID in
+  general; its Atomicity/Durability (WAL) mechanism is the same logging
+  machinery this doc leans on for "strict 2PL holds locks to commit" and
+  MVCC's snapshot-visibility-at-commit behavior.
 - `context/concept-bank.md` → `sysd-03` (CAP theorem) — isolation is the
   "C" of ACID, which is a different C from CAP's consistency; worth
   untangling when that topic comes up.
