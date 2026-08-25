@@ -1,5 +1,9 @@
 # State
+<<<<<<< Updated upstream
 - last_session_date: 2026-08-21
+=======
+- last_session_date: 2026-08-25
+>>>>>>> Stashed changes
 - streak_days: 1
 - selection_mode: random-combined
   <!-- daily-dsa picks uniformly at random from all status:todo rows across

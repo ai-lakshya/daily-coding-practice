@@ -7,8 +7,12 @@ one that already has a doc to extend.
 ## Topics
 | id | sub-topic | topic | doc | sessions | confidence | first_logged | last_updated |
 |----|-----------|-------|-----|---------:|:----------:|--------------|--------------|
+<<<<<<< Updated upstream
 | sd-001 | databases | Transaction Isolation Levels | `databases/transaction-isolation-levels.md` | 1 | pending | 2026-08-19 | 2026-08-21 |
 | sd-002 | databases | Transactions & ACID Properties | `databases/transactions-acid.md` | 1 | pending | 2026-08-21 | 2026-08-21 |
+=======
+| sd-001 | databases | Transaction Isolation Levels | [transaction-isolation-levels.md](databases/transaction-isolation-levels.md) | 1 | pending | 2026-08-19 | 2026-08-25 |
+>>>>>>> Stashed changes
 
 ## Canonical sub-topic directories
 Pick the closest fit. Create a new directory only if a topic genuinely
