@@ -8,8 +8,18 @@ agent working in this repo should:
    - "daily practice" / "give me a problem" / "today's DSA"  -> agents/daily-dsa.md
    - "concept of the day" / "teach me something"             -> agents/daily-concept.md
    - "system design" / a topic the user just read up on      -> agents/system-design.md
+   - "game dev" / a roadmap id (T02.S03, A006) / "I solved A0NN"
+     / "what's next in game dev" / "expand T05"               -> agents/game-dev.md
    - "how am I doing" / "show progress" / "my streak"        -> agents/log-progress.md
    - weekly review (auto if 7+ days since last reviews/*.md) -> agents/weekly-review.md
+
+   Note: agents/game-dev.md owns the `game-development/` directory — a
+   three-layer roadmap (topics -> subtopics -> theory + assignments) with
+   its own cursor in `game-development/STATE.md` and its own conventions
+   in `game-development/roadmap/CONVENTIONS.md`. It has two main modes:
+   a *study* session on a roadmap node, and a *review* of an assignment
+   the user coded in `game-development/code/`. Read
+   `game-development/roadmap/CONVENTIONS.md` before acting on it.
 
    Note: agents/system-design.md is the *self-study* track — the user reads
    a topic from their own PDF first and brings it in. It is separate from
