@@ -30,6 +30,16 @@ in this repo's files — no external app or database.
   `game-development/code/` and bring it back for review.
   `game-development/roadmap/INDEX.md` is the map;
   `game-development/roadmap/CONVENTIONS.md` is the rulebook.
+- **Your own questions** live in `coding-questions/` — problems you solved
+  outside any guided session, on whatever platform. You drop the `.cpp` in,
+  then say "analyse" and each new solution gets an explanation written
+  beside it: the premise, a review of *your* solution, the optimal one, and
+  a deep-dive on every concept it used, with sources. Questions you
+  *couldn't* solve get the inverted treatment — concepts first, so you can
+  re-attempt before reading the solution. Contests get one `CONTEST.md` for
+  the whole set. `coding-questions/INDEX.md` is the registry and
+  `coding-questions/CONCEPTS.md` maps each concept to every question that
+  used it.
 - Every session's outcome is logged to `context/progress.md`, per-problem
   write-ups go in `docs/<source>/`, and per-concept notes go in `concepts/`.
 - `context/state.md` tracks streak and concept rotation position — it's
@@ -45,6 +55,11 @@ Say things like:
 - "game dev: today I'm on T02.S03 — here's what I understood ..." (or `/game-dev`)
 - "I solved A006" — runs the review ladder against your code
 - "what's next in game dev" / "expand T04"
+- "analyse" — writes explanations for any new solutions in
+  `coding-questions/` (or `/coding-questions`)
+- "I couldn't solve <problem>, the file is <path>" — concepts first, then
+  the full solution
+- "contest abc-475" — builds that contest directory's `CONTEST.md`
 - "how am I doing" / "show progress" / "my streak"
 - "weekly review"
 

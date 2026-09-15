@@ -10,6 +10,8 @@ agent working in this repo should:
    - "system design" / a topic the user just read up on      -> agents/system-design.md
    - "game dev" / a roadmap id (T02.S03, A006) / "I solved A0NN"
      / "what's next in game dev" / "expand T05"               -> agents/game-dev.md
+   - "analyse" / "I couldn't solve <problem>" / "contest <slug>"
+     / anything about coding-questions/                       -> agents/coding-questions.md
    - "how am I doing" / "show progress" / "my streak"        -> agents/log-progress.md
    - weekly review (auto if 7+ days since last reviews/*.md) -> agents/weekly-review.md
 
@@ -20,6 +22,14 @@ agent working in this repo should:
    a *study* session on a roadmap node, and a *review* of an assignment
    the user coded in `game-development/code/`. Read
    `game-development/roadmap/CONVENTIONS.md` before acting on it.
+
+   Note: agents/coding-questions.md owns the `coding-questions/` directory —
+   questions the user solved on their own, outside any guided session, each
+   paired with a written explanation. It is the mirror image of
+   agents/daily-dsa.md: there the agent serves a problem and guides the
+   solve, here the solve already happened and the agent writes the record
+   afterwards. Never serve a problem from it. Read
+   `coding-questions/CONVENTIONS.md` before acting on it.
 
    Note: agents/system-design.md is the *self-study* track — the user reads
    a topic from their own PDF first and brings it in. It is separate from
