@@ -22,7 +22,7 @@ Next free question id: **cq-006**
 ## Contests
 | id | contest | directory | doc | problems | solved | logged |
 |----|---------|-----------|-----|---------:|-------:|--------|
-| ct-01 | [AtCoder Beginner Contest 475](https://atcoder.jp/contests/abc475/tasks) | `contests/abc-475/` | [CONTEST.md](contests/abc-475/CONTEST.md) | 7 (A–G) | 0 — all files are empty placeholders | — |
+| ct-01 | [AtCoder Beginner Contest 475](https://atcoder.jp/contests/abc475/tasks) | `contests/abc-475/` | [CONTEST.md](contests/abc-475/CONTEST.md) | 7 (A–G) | 4 — A, B, C, D (E, F, G unsolved) | 2026-09-15 |
 
 Next free contest id: **ct-02**
 

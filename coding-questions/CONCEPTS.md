@@ -15,10 +15,9 @@ Use it two ways:
 ## Concepts
 | concept | best explanation | also used in | repo cross-refs | confidence |
 |---------|------------------|--------------|-----------------|:----------:|
-
-<!-- Example row, delete once real rows exist:
-| 0/1 knapsack | [cq-004](atcoder-dp/d-knapsack1.md) | cq-011, cq-019 | `concepts/2026-08-12-dp-state-design.md` | 3 |
--->
+| range covering on a line | [ct-01 §2.1](contests/abc-475/CONTEST.md#21-range-covering-on-a-line-prefix-sums--binary-search--used-in-c) | | | |
+| segmented sieve | [ct-01 §2.2](contests/abc-475/CONTEST.md#22-segmented-sieve--used-in-d) | | | |
+| canonical coin systems | [ct-01 §2.3](contests/abc-475/CONTEST.md#23-canonical-coin-systems--digit-decomposition--used-in-b) | | | |
 
 ## Column notes
 - **concept** — a short, stable, lowercase tag. Reuse an existing string
