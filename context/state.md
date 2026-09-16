@@ -1,6 +1,6 @@
 # State
-- last_session_date: 2026-09-15
-- streak_days: 1
+- last_session_date: 2026-09-16
+- streak_days: 2
 - selection_mode: random-combined
   <!-- daily-dsa picks uniformly at random from all status:todo rows across
        leetcode-150 + atcoder-dp + cses combined (no per-source rotation),

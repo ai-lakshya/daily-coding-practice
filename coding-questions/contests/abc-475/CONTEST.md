@@ -8,7 +8,7 @@
 | **Solved in contest** | 2 — A, B |
 | **Solved after** | 2 — C, D |
 | **Unsolved** | E, F, G |
-| **Concepts** | segmented sieve, canonical coin systems, range covering on a line |
+| **Concepts** | segmented sieve, canonical coin systems, range covering on a line, binary search with the STL |
 
 ---
 
@@ -54,6 +54,8 @@ and the interval is reachable iff `min(cost(left-first), cost(right-first)) ≤ 
 - [USACO Guide — Two Pointers](https://usaco.guide/silver/two-pointers) (the general technique the O(n) refinement targets)
 - [cppreference — std::midpoint](https://en.cppreference.com/w/cpp/numeric/midpoint) (overflow-safe midpoint, used in the binary search)
 
+**See also §2.4** — the hand-rolled binary search described above rewritten with `std::upper_bound` / `std::lower_bound` / `std::partition_point`, which also shows that `post` is entirely redundant with `pre` and that the `std::max(startPos, ...)` guard discussed here is an artefact of the search window rather than a real edge case.
+
 ### 2.2 Segmented sieve — used in D
 
 **What it is:** a way to enumerate primes in an arbitrary range `[L, R]` without allocating a sieve array of size `R` from `0`. It only needs the numbers up to `√R` (composite or not) to mark multiples inside the window `[L, R]`.
@@ -84,6 +86,114 @@ and the interval is reachable iff `min(cost(left-first), cost(right-first)) ≤ 
 **Sources:**
 - [Wikipedia — Change-making problem (§ Canonical coin systems)](https://en.wikipedia.org/wiki/Change-making_problem)
 
+### 2.4 Binary search with the STL — used in C
+
+**What it is:** `<algorithm>`'s three binary-search primitives — `std::lower_bound`, `std::upper_bound`, `std::partition_point` — used in place of the hand-rolled loop in `c2.cpp`. All three answer the same question ("where does a monotone property flip?") and differ only in how the property is spelled: the first two compare each element against a fixed value, the third takes an arbitrary predicate.
+
+**How it works:**
+
+*Step 1 — isolate the element.* This is the enabling move, and it is algebra, not API knowledge. `lower_bound`/`upper_bound` never see the index, only the element, so everything that does not depend on the search variable must move to the right-hand side. `c2.cpp`'s predicate
+
+```
+pre[curr] - pre[minLeft] <= totalCostLocal      ->      pre[curr] <= pre[minLeft] + totalCostLocal
+                                                        ^element^    ^-- constant for this iteration --^
+```
+
+If that isolation is awkward, or forming the right-hand constant risks overflow, that is precisely the signal to use `partition_point` instead.
+
+*Step 2 — pick the boundary.* On an **ascending** range `v` and value `x`. Both functions return a *first*; the "last" forms are that minus one. Convert iterator to index with `- v.begin()`:
+
+| want | call |
+|---|---|
+| **first** `i` with `v[i] >= x` | `lower_bound(b, e, x)` |
+| **first** `i` with `v[i] > x` | `upper_bound(b, e, x)` |
+| **last** `i` with `v[i] < x` | `lower_bound(b, e, x) - 1` |
+| **last** `i` with `v[i] <= x` | `upper_bound(b, e, x) - 1` |
+
+Both return `end()` when nothing qualifies and both can return `begin()`, so a `-1` is only safe when the first element is *provably* a match.
+
+*Step 3 — descending ranges need a comparator.* A plain `lower_bound` on the non-increasing `post` array is **undefined behaviour**, not a wrong index: the range must be partitioned with respect to the comparison used. Either pass the order the range is actually sorted in — `std::lower_bound(b, e, x, std::greater<ll>{})`, which returns the first element *not greater than* `x` — or avoid the situation entirely (see "How it showed up here"). Argument order differs between the two and is a live trap: `lower_bound` calls `comp(*it, value)`, `upper_bound` calls `comp(value, *it)`.
+
+*The general form.* `partition_point` returns the first element for which a predicate is **false**, given that the range is true-then-false throughout: *"all elements before `iter` satisfy `p`, while all elements starting from `iter` do not"*. So `pp` is the first false, `pp - 1` the last true, `pp == last` means all true, `pp == first` means all false. The law is that `p` must run **true-then-false, never false-then-true** — if the natural predicate reads backwards, negate it and the answer moves from `pp - 1` to `pp`. A non-monotone predicate is undefined behaviour, not a debuggable wrong answer. The other two are this function with the predicate baked in:
+
+```cpp
+std::lower_bound(b, e, x)  ==  std::partition_point(b, e, [&](auto&& v){ return v <  x; });
+std::upper_bound(b, e, x)  ==  std::partition_point(b, e, [&](auto&& v){ return !(x < v); });
+```
+
+which is also how to re-derive which is which: `lower_bound` partitions on `< x`, so its first-false is the first `>= x`.
+
+**Complexity:** O(log n) comparisons — or O(log n) *applications of the predicate* for `partition_point`, so if the predicate is itself an O(n) feasibility check the total is O(n log n). All three are O(log n) only on **random-access** iterators; on a `std::set` or `std::list` the comparisons stay logarithmic but the iterator increments are linear, so use the container's member `.lower_bound()` there. `std::views::iota` is random-access and safe.
+
+**How it showed up here:** `c2.cpp`'s two hand-rolled loops both collapse. Three findings came out of the rewrite, in increasing order of transferability:
+
+1. **`post` is entirely redundant with `pre`.** For `i <= j`, `post[i] - post[j] == pre[j] - pre[i]` — both are `dist(i, j)`. Dropping `post` means only one ascending array is ever searched, so the descending-range problem and `std::greater` never arise. The mirror loop becomes `lower_bound(pre.begin(), pre.begin() + s + 1, pre[s] - budget)`.
+2. **The `if (left == minLeft) ... else std::max(startPos, left)` guard was an artefact of searching too wide a window**, not a real edge case. It existed because the search range `[minLeft, n)` included indices left of `S`, so the search could return a point short of `S` even though `S` was already visited for free on the way out. Starting the range at `pre.begin() + s` makes the result `>= s` by construction and the `-1` provably in-bounds: `pre[s] <= pre[s] + budget` always holds, so the window's first element is always a match. **Constraining `[first, last)` to the indices the problem permits is what removes the edge case** — most binary-search off-by-ones are really "I searched a wider window than the problem allows."
+3. **The cost accounting has to be chosen once and kept.** The rewrite charges `2 * dist(S, extreme)` up front and then only `dist(S, far end)`, which makes the leftover budget a clean per-iteration constant. `c2.cpp` instead charges one trip out and then the full walk from the extreme — same total, but the two are *not* interchangeable mid-loop, and mixing them silently triple-charges `dist(S, extreme)`. (This was hit for real while drafting the `std::greater` variant for this section; a stress test against an O(n²) brute force caught it.)
+
+The resulting solution, verified against an O(n²) brute force and against `c2.cpp` on 4,500 random tests including the `A_i = 10^9` / `L = 10^18` extremes:
+
+```cpp
+ll best = 1;
+
+// left extreme first, then as far right as the rest of the budget allows
+for (ll i = s; i >= 0; --i) {
+    ll spent = 2 * (pre[s] - pre[i]);        // out to i and back through S
+    if (spent > l) break;                    // monotone in i -> safe to stop
+    ll r = std::upper_bound(pre.begin() + s, pre.end(),
+                            pre[s] + (l - spent)) - pre.begin() - 1;
+    best = std::max(best, r - i + 1);
+}
+
+// mirror: right extreme first, then as far left as the rest allows
+for (ll i = s; i < n; ++i) {
+    ll spent = 2 * (pre[i] - pre[s]);
+    if (spent > l) break;
+    ll j = std::lower_bound(pre.begin(), pre.begin() + s + 1,
+                            pre[s] - (l - spent)) - pre.begin();
+    best = std::max(best, i - j + 1);
+}
+```
+
+The `partition_point` form of the same two loops, which needs no algebra at all:
+
+```cpp
+const ll budget = l - spent;
+
+// loop A: cost grows with the index -> "affordable" is already true-then-false
+auto affordable   = [&](ll p) { return p - pre[s] <= budget; };
+ll r = std::partition_point(pre.begin() + s, pre.end(), affordable) - pre.begin() - 1;
+
+// loop B: walking left, the affordable towns are the ones NEAREST S, i.e. on the
+// right of the window -> "affordable" would be false-then-true, so negate it and
+// the answer moves from (pp - 1) to pp itself.
+auto unaffordable = [&](ll p) { return pre[s] - p > budget; };
+ll j = std::partition_point(pre.begin(), pre.begin() + s + 1, unaffordable) - pre.begin();
+```
+
+Loop B's in-bounds proof mirrors loop A's: the window *ends* at index `s` and `unaffordable(pre[s])` is `0 > budget`, i.e. false, so there is always at least one false element and `pp` is never the window's `end`.
+
+**The recognisable signal:** any monotone "largest/smallest index that still fits a budget" is one of these three calls. Reach for `lower_bound`/`upper_bound` when the predicate genuinely is "element vs. a constant" — it is shorter and needs no lambda. Reach for `partition_point` when the predicate involves anything else. In particular **"binary search the answer"** — *minimum capacity to ship in D days*, *maximise the minimum distance*, *smallest radius covering everything* — has no array to call `lower_bound` on and is always one `partition_point`, usually over an index range rather than over data:
+
+```cpp
+auto days = std::views::iota(1LL, hi + 1);              // lazy, no allocation
+ll ans = *std::ranges::partition_point(days, [&](ll d) { return !feasible(d); });
+```
+
+That form is the one that transfers; this problem's `upper_bound` is merely the tighter code for this problem.
+
+**Pitfalls worth a reflex:**
+- **Overflow moves to the right-hand side.** Isolating the element means building a constant like `pre[s] + (l - spent)`. Here `pre` maxes at `7999 * 10^9 ~ 8*10^12` against `L <= 10^18`, so the sum is ~`10^18` and safe in `long long` (max ~`9.2*10^18`) — but this is exactly what step 1 can break, so check it every time.
+- **State why the predicate is monotone over *this* window** before writing the call. Here `pre` is strictly increasing because `A_i >= 1`; a zero weight would still be fine (non-decreasing), a negative one would invalidate the whole approach.
+- **`pp == end()` is a normal case, not an error** — in loop A it means "everything is affordable" and the arithmetic handles it. Only guard it before dereferencing.
+- Using `- v.begin()` yields a signed `ptrdiff_t`, which also clears the `size_t`/`ll` mixing flagged in §2.1.
+- C++20 `std::ranges::lower_bound(pre, x)` takes the container directly and supports projections (`std::ranges::lower_bound(items, x, {}, &Item::weight)`). In `std::ranges` these are customization point *objects*, so unlike the classic function templates they can be bound to a variable and passed around.
+
+**Sources:**
+- [cppreference — std::lower_bound](https://en.cppreference.com/w/cpp/algorithm/lower_bound) — *"Iterator to the first element which is not ordered before `value`"*; comparator called as `comp(*iter, value)`
+- [cppreference — std::upper_bound](https://en.cppreference.com/w/cpp/algorithm/upper_bound) — *"Iterator to the first element which is ordered after `value`"*; comparator called as `comp(value, *iter)`; *"If `ForwardIt` is not a `LegacyRandomAccessIterator`, the number of iterator increments is linear"*
+- [cppreference — std::partition_point](https://en.cppreference.com/w/cpp/algorithm/partition_point) — *"all elements before `iter` satisfy `p`, while all elements starting from `iter` do not"*; O(log N) applications of `p`
+
 ---
 
 ## 3. Key ideas that would have helped
@@ -109,8 +219,9 @@ and the interval is reachable iff `min(cost(left-first), cost(right-first)) ≤ 
 **Where the time went:** not recorded.
 
 **What to drill:**
-- The segmented-sieve pattern from D (§2.1) — it's a clean, reusable primitive worth having ready without re-deriving the `max(i·i, first multiple ≥ L)` bound each time.
-- Replacing the hand-rolled binary search in `c2.cpp` with `std::upper_bound`/`std::lower_bound` directly on the `pre`/`post` arrays — same idea, less surface area for the kind of off-by-one the `left == minLeft` branch was guarding against.
+- The segmented-sieve pattern from D (§2.2) — it's a clean, reusable primitive worth having ready without re-deriving the `max(i·i, first multiple ≥ L)` bound each time.
+- ~~Replacing the hand-rolled binary search in `c2.cpp` with `std::upper_bound`/`std::lower_bound` directly on the `pre`/`post` arrays.~~ **Done 2026-09-16 — written up as §2.4.** Three things carried forward: `post` is redundant with `pre` (`post[i] - post[j] == pre[j] - pre[i]`), so only one ascending array ever needs searching; the `left == minLeft` branch was guarding a symptom of too wide a search window, not a real edge case; and `std::partition_point` — not `lower_bound` — is the form that generalises to "binary search the answer". `c2.cpp` itself is left untouched as the historical record.
+- Still open from this line of work: the O(n) two-pointer version of C reserved for `c.cpp`. §2.4 removes the binary search's sharp edges but does not change the complexity class.
 - A quick habit check: given a fresh problem, name the complexity class the constraints demand *before* picking an approach — C's `N ≤ 8000` supporting O(n²) is the concrete example from this contest.
 
 **Open:** E, F, and G are all still unsolved.

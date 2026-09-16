@@ -18,6 +18,7 @@ Use it two ways:
 | range covering on a line | [ct-01 §2.1](contests/abc-475/CONTEST.md#21-range-covering-on-a-line-prefix-sums--binary-search--used-in-c) | | | |
 | segmented sieve | [ct-01 §2.2](contests/abc-475/CONTEST.md#22-segmented-sieve--used-in-d) | | | |
 | canonical coin systems | [ct-01 §2.3](contests/abc-475/CONTEST.md#23-canonical-coin-systems--digit-decomposition--used-in-b) | | | |
+| binary search with the STL | [ct-01 §2.4](contests/abc-475/CONTEST.md#24-binary-search-with-the-stl--used-in-c) | | | |
 
 ## Column notes
 - **concept** — a short, stable, lowercase tag. Reuse an existing string
