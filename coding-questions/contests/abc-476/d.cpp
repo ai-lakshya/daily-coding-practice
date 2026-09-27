@@ -1,0 +1,3 @@
+/*
+    Problem link: https://atcoder.jp/contests/abc476/tasks/abc476_d
+*/
