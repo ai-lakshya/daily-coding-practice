@@ -6,5 +6,5 @@
 - Teaching style: SOLVE_FIRST
   <!-- SOLVE_FIRST = user attempts first; agent then analyzes flaws in the
        user's actual approach before teaching the optimal one. -->
-- Daily budget: ~45-60 min
+- Daily budget: ~90 min weekdays + contests on weekends (~12-14 h/week, CP first; see context/cp-plan.md)
 - Domain flavor for examples: Generic (no specific industry slant)

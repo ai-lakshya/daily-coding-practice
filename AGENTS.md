@@ -42,6 +42,12 @@ agent working in this repo should:
    do not skip the write-back steps.
 4. Never change context/profile.md's stated preferences without the user
    explicitly asking to change them.
+5. CP comes first until Codeforces rating >= 1200 (context/cp-plan.md).
+   Until then, coding-questions, system-design and daily-concept are
+   PAUSED: if one is triggered, say so and point at context/cp-plan.md
+   instead of running it. game-dev stays active (2 h/week). Never write
+   solution code for a problem the user is attempting; give at most one
+   hint, per the stuck protocol in cp-plan.md.
 
 If you are Claude Code: .claude/skills/ exposes the same logic as
 invokable Skills — they delegate to agents/, so either entry point works.
